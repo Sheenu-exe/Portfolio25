@@ -13,19 +13,21 @@ const Main = () => {
     const [projects, setProjects] = useState([]);
     
     useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const projectsRef = collection(db, 'projects');
-                const snapshot = await getDocs(projectsRef);
-                const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setProjects(projectsData);
-            } catch (error) {
-                console.error('Error fetching projects: ', error);
-            }
-        };
-
-        fetchProjects();
+        if (typeof window !== "undefined") {
+            const fetchProjects = async () => {
+                try {
+                    const projectsRef = collection(db, 'projects');
+                    const snapshot = await getDocs(projectsRef);
+                    const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    setProjects(projectsData);
+                } catch (error) {
+                    console.error('Error fetching projects: ', error);
+                }
+            };
+            fetchProjects();
+        }
     }, []);
+    
     return (
         <div className="bg-black w-full text-white min-h-screen">
             {/* Hero Section */}
