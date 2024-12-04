@@ -7,6 +7,8 @@ import { db } from "../firebase.config";
 import { collection } from '@firebase/firestore';
 import { getDocs } from '@firebase/firestore';
 import { useEffect } from "react";
+import Computer from "../assets/imgs/comp.gif"
+import Image from 'next/image';
 const Main = () => {
     const [projects, setProjects] = useState([]);
     
@@ -27,12 +29,14 @@ const Main = () => {
     return (
         <div className="bg-black w-full text-white min-h-screen">
             {/* Hero Section */}
-            <div className="container mx-auto px-6 py-16 h-[50vh] text-center flex justify-center items-center flex-col">
+            <div className="container   sm:h-[60vh] h-screen text-center flex justify-center items-center flex-col">
+                <Image className="h-[40vh] w-auto" src={Computer} alt="" />
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
+                    
                     <h1 className="text-6xl font-extralight tracking-tight mb-4">
                         Sachin Parihar
                     </h1>
