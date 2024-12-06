@@ -1,4 +1,5 @@
 
+import DockDemo from "./components/dock";
 import "./globals.css";
 
 export const metadata = {
@@ -9,8 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-black">
         {children}
+        <div className="sticky bottom-5 left-0 w-full flex justify-center items-center">
+        <DockDemo/>
+      </div>
       </body>
     </html>
   );
