@@ -20,7 +20,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="h-[10vh] bg-black w-full flex justify-center items-center sticky top-0 left-0">
+    <header className="h-[10vh] bg-black w-full flex justify-center items-center fixed top-0 left-0">
       <div className="w-[80vw] flex items-center">
         <p className="tracking-tighter Jetbrains text-lg font-extralight">
           &gt;_ <span className="Jetbrains text-base" ref={typedRef}></span>
