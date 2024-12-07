@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.0.2",
@@ -20,7 +21,8 @@
     "react-spring-carousel": "^2.0.19",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "typed.js": "^2.1.0"
+    "typed.js": "^2.1.0",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "postcss": "^8",

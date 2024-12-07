@@ -26,9 +26,11 @@ function DockDemo() {
           </Link>
         </DockIcon>
         <DockIcon className="text-white text-3xl">
+          <Link href={"/blog"}>
           <RiPagesLine title="Blogs"/>
+          </Link>
         </DockIcon>
-        <div className="w-[1px] bg-white h-[5vh] text-3xl"></div>
+        <div className="w-[1px] bg-white sm:block hidden h-[5vh] text-3xl"></div>
         <DockIcon className="text-white text-3xl">
           <FaGithub title="GitHub"/>
         </DockIcon>

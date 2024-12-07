@@ -32,7 +32,7 @@ const AboutMe = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h1 className="text-6xl font-extralight tracking-tight mb-4 mx-5">
+                    <h1 className="text-6xl font-semibold tracking-tight mb-4 mx-5">
                         About Me
                     </h1>
                     
