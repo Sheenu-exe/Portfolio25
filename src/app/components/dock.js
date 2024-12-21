@@ -32,7 +32,9 @@ function DockDemo() {
         </DockIcon>
         <div className="w-[1px] bg-white sm:block hidden h-[5vh] text-3xl"></div>
         <DockIcon className="text-white text-3xl">
+          <Link target="_blank" href="https://github.com/Sheenu-exe">
           <FaGithub title="GitHub"/>
+          </Link>
         </DockIcon>
         <DockIcon className="text-white text-3xl">
           <FaGoogleDrive title="Google Drive"/>
