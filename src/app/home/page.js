@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import { collection, getDocs } from 'firebase/firestore'; 
 import { db } from '../firebase.config';
-import { Code } from "lucide-react";
-import { ExternalLink } from "lucide-react";
+import { Code, ExternalLink } from "lucide-react";
+import { Globe, Database, Palette, Brain } from "lucide-react";
 import Image from "next/image";
 import Hero from "../assets/imgs/hero-section5.jpg"
 import AOS from 'aos';
@@ -16,6 +16,49 @@ const Main = () => {
     const [experiences, setExperiences] = useState([]);
     const sortedExperiences = experiences.sort((a, b) => parseInt(a.index) - parseInt(b.index));
     
+    const techCategories = [
+        {
+            title: "Frontend",
+            icon: <Globe className="w-6 h-6 mb-2" />,
+            technologies: [
+                { name: "HTML", level: "Advanced" },
+                { name: "CSS", level: "Advanced" },
+                { name: "JavaScript", level: "Advanced" },
+                { name: "React.JS", level: "Advanced" },
+                { name: "Next.JS", level: "Advanced" }
+            ],
+            color: "from-blue-500/20 to-cyan-500/20"
+        },
+        {
+            title: "Backend & Database",
+            icon: <Database className="w-6 h-6 mb-2" />,
+            technologies: [
+                { name: "Firebase", level: "Advanced" },
+                { name: "Supabase", level: "Intermediate" },
+                { name: "MongoDB", level: "Advanced" },
+                { name: "Node.JS", level: "Advanced" }
+            ],
+            color: "from-green-500/20 to-emerald-500/20"
+        },
+        {
+            title: "Styling",
+            icon: <Palette className="w-6 h-6 mb-2" />,
+            technologies: [
+                { name: "Tailwind", level: "Advanced" },
+                { name: "Bootstrap", level: "Advanced" }
+            ],
+            color: "from-purple-500/20 to-pink-500/20"
+        },
+        {
+            title: "AI Integration",
+            icon: <Brain className="w-6 h-6 mb-2" />,
+            technologies: [
+                { name: "OpenAI API", level: "Intermediate" }
+            ],
+            color: "from-orange-500/20 to-red-500/20"
+        }
+    ];
+
     useEffect(() => {
         // Initialize AOS
         AOS.init({
@@ -58,9 +101,11 @@ const Main = () => {
             <div 
                 className="container h-screen mt-5 flex flex-col justify-center items-center sm:justify-center sm:items-center"
             >
-                <div className="sm:w-[85vw]">
+                <div className="sm:w-[85vw] flex sm:flex-row flex-col">
+                    <div>
+                    <p className="sm:mx-1 mx-5">Hey there, Its</p>
                     <h1 
-                        className="sm:text-6xl text-4xl font-extralight tracking-tight mb-2 mx-5 sm:mx-0"
+                        className="sm:text-6xl text-5xl font-bold tracking-tight my-2 mx-5 sm:mx-0"
                     >
                         Sachin Parihar
                     </h1>
@@ -69,8 +114,9 @@ const Main = () => {
                     >
                         Fullstack Developer Based in Pune
                     </p>
+                    </div>
                     <p 
-                        className="sm:text-xl text-neutral-500 max-w-2xl mx-5 sm:mx-0"
+                        className="sm:text-2xl text-neutral-500 max-w-2xl mx-5 sm:text-end sm:mx-0"
                     >
                         Crafting digital experiences that blur the lines between design, technology, and human interaction.
                     </p>
@@ -83,34 +129,45 @@ const Main = () => {
             </div>
 
             {/* Tech Stack Section */}
-            <section 
-                id="tech-stack" 
-                className="container w-full min-h-screen flex justify-center items-center flex-col py-16"
-            >
-                <h2 
-                    className="text-5xl font-light text-center mb-16"
-                    data-aos="fade-up"
-                >
-                    Tech Stack
-                </h2>
-                <div className="grid md:grid-cols-4 grid-cols-2 gap-12 max-w-5xl mx-auto">
-                    {[
-                        'HTML', 'CSS', 'JavaScript', 'React.JS', 
-                        'Firebase', 'Supabase', 'MongoDB', 
-                        'Tailwind', 'Bootstrap', 'OpenAI API', 
-                        'Next.JS', 'Node.JS'
-                    ].map((tech, index) => (
-                        <div
-                            key={index}
-                            className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 text-center group"
-                            data-aos="flip-left"
-                            data-aos-delay={index * 100}
-                        >
-                            <p className="text-xl text-neutral-300 font-medium group-hover:text-white transition-colors">
-                                {tech}
-                            </p>
-                        </div>
-                    ))}
+            <section id="tech-stack" className="container w-full min-h-screen flex justify-center items-center flex-col py-8 sm:py-16 px-3 sm:px-4">
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-4xl sm:text-5xl font-light text-center mb-8 sm:mb-16" data-aos="fade-up">
+                        Tech Stack
+                    </h2>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                        {techCategories.map((category, index) => (
+                            <div
+                                key={index}
+                                className="relative group"
+                                data-aos="zoom-in"
+                                data-aos-delay={index * 100}
+                            >
+                                <div className={`absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br ${category.color} blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500`} />
+                                <div className="relative bg-neutral-900/80 border border-neutral-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 h-full backdrop-blur-sm">
+                                    <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                                        {category.icon}
+                                        <h3 className="text-xl sm:text-2xl font-medium">{category.title}</h3>
+                                    </div>
+                                    <div className="space-y-3 sm:space-y-4">
+                                        {category.technologies.map((tech, techIndex) => (
+                                            <div
+                                                key={techIndex}
+                                                className="group/tech flex justify-between items-center p-2 sm:p-3 rounded-lg hover:bg-neutral-800/50 transition-colors"
+                                            >
+                                                <span className="text-base sm:text-lg text-neutral-300 group-hover/tech:text-white">
+                                                    {tech.name}
+                                                </span>
+                                                <span className="text-xs sm:text-sm text-neutral-500 group-hover/tech:text-neutral-300">
+                                                    {tech.level}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
 
