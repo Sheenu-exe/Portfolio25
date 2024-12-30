@@ -1,12 +1,10 @@
 import React from "react";
 import { Dock,DockIcon } from "@/components/ui/dock";
-import { FaGithub } from "react-icons/fa";
-import { FaGoogleDrive } from "react-icons/fa";
-import { FaWhatsapp } from "react-icons/fa";
-import { RiNotionFill } from "react-icons/ri";
+import { FaXTwitter,FaWhatsapp,FaGithub,FaInstagram } from "react-icons/fa6";
 import { RiPagesLine } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
 import { SiEagle } from "react-icons/si";
+import { TbMailShare } from "react-icons/tb";
 
 
 import Link from "next/link";
@@ -37,10 +35,19 @@ function DockDemo() {
           </Link>
         </DockIcon>
         <DockIcon className="text-white text-3xl">
-          <FaGoogleDrive title="Google Drive"/>
+        <Link target="_blank" href="https://twitter.com/Sheenu_exe">
+          <FaXTwitter title="GitHub"/>
+          </Link>
         </DockIcon>
         <DockIcon className="text-white text-3xl">
-          <RiNotionFill title="Notion" />
+        <Link target="_blank" href="https://www.instagram.com/sachinn.code/">
+          <FaInstagram title="GitHub"/>
+          </Link>
+        </DockIcon>
+        <DockIcon className="text-white text-3xl">
+        <Link target="_blank" href="mailto:pariharsachin5002@gmail.com">
+          <TbMailShare title="GitHub"/>
+          </Link>
         </DockIcon>
         <DockIcon>
           <a target="_blank" className="text-white text-3xl" href="https://wa.me/+918668369314">

@@ -10,57 +10,67 @@ import Image from "next/image";
 import Hero from "../assets/imgs/hero-section5.jpg"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { AiOutlineHtml5 } from "react-icons/ai";
+import { TbBrandCss3 } from "react-icons/tb";
+import { TbBrandJavascript } from "react-icons/tb";
+import { FaReact } from "react-icons/fa";
+import { FaBootstrap } from "react-icons/fa";
+import { SiTailwindcss } from "react-icons/si";
+import { SiNextdotjs } from "react-icons/si";
+import { DiMongodb } from "react-icons/di";
+import { IoLogoFirebase } from "react-icons/io5";
+import { RiSupabaseFill } from "react-icons/ri";
+import { FaPython } from "react-icons/fa";
+import { SiTypescript } from "react-icons/si";
 
 const Main = () => {
     const [projects, setProjects] = useState([]);
     const [experiences, setExperiences] = useState([]);
     const sortedExperiences = experiences.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+    const sortedProjects = projects.sort((a, b) => parseInt(a.index) - parseInt(b.index));
     
-    const techCategories = [
-        {
-            title: "Frontend",
-            icon: <Globe className="w-6 h-6 mb-2" />,
-            technologies: [
-                { name: "HTML", level: "Advanced" },
-                { name: "CSS", level: "Advanced" },
-                { name: "JavaScript", level: "Advanced" },
-                { name: "React.JS", level: "Advanced" },
-                { name: "Next.JS", level: "Advanced" }
-            ],
-            color: "from-blue-500/20 to-cyan-500/20"
-        },
-        {
-            title: "Backend & Database",
-            icon: <Database className="w-6 h-6 mb-2" />,
-            technologies: [
-                { name: "Firebase", level: "Advanced" },
-                { name: "Supabase", level: "Intermediate" },
-                { name: "MongoDB", level: "Advanced" },
-                { name: "Node.JS", level: "Advanced" }
-            ],
-            color: "from-green-500/20 to-emerald-500/20"
-        },
-        {
-            title: "Styling",
-            icon: <Palette className="w-6 h-6 mb-2" />,
-            technologies: [
-                { name: "Tailwind", level: "Advanced" },
-                { name: "Bootstrap", level: "Advanced" }
-            ],
-            color: "from-purple-500/20 to-pink-500/20"
-        },
-        {
-            title: "AI Integration",
-            icon: <Brain className="w-6 h-6 mb-2" />,
-            technologies: [
-                { name: "OpenAI API", level: "Intermediate" }
-            ],
-            color: "from-orange-500/20 to-red-500/20"
-        }
-    ];
+    const TechStackItem = ({ icon, title, description, skillLevel }) => {
+        return (
+            <motion.div 
+                className="flex flex-col items-center p-4"
+                whileHover={{ 
+                    scale: 1.05,
+                    transition: { duration: 0.2 }
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 0.5 }
+                }}
+                viewport={{ once: true }}
+            >
+                <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    {icon}
+                </motion.div>
+                <h3 className="my-3 text-3xl font-semibold">{title}</h3>
+                <div className="w-full">
+                    <div className="h-2 w-full bg-gray-700 rounded-full">
+                        <motion.div 
+                            className="h-full bg-gray-200 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ 
+                                width: skillLevel === "Advanced" ? "90%" : 
+                                       skillLevel === "Intermediate" ? "65%" : "40%"
+                            }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                        />
+                    </div>
+                    <p className="text-gray-400 mt-2 text-sm text-center">{skillLevel}</p>
+                </div>
+            </motion.div>
+        );
+    }
 
     useEffect(() => {
-        // Initialize AOS
         AOS.init({
             duration: 800,
             once: false,
@@ -98,89 +108,71 @@ const Main = () => {
     return (
         <div className="bg-black w-full text-white min-h-screen flex justify-center items-center flex-col">
             {/* Hero Section */}
-            <div 
-                className="container h-screen mt-5 flex flex-col justify-center items-center sm:justify-center sm:items-center"
-            >
-                <div className="sm:w-[85vw] flex sm:flex-row flex-col">
+            <div className="container h-screen mt-5 flex flex-col justify-center items-center sm:justify-center sm:items-center">
+                <motion.div 
+                    className="sm:w-[85vw] flex sm:flex-row flex-col"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                >
                     <div>
-                    <p className="sm:mx-1 mx-5">Hey there, Its</p>
-                    <h1 
-                        className="sm:text-6xl text-5xl font-bold tracking-tight my-2 mx-5 sm:mx-0"
-                    >
-                        Sachin Parihar
-                    </h1>
-                    <p 
-                        className="sm:text-3xl text-xl text-neutral-300 mb-2 mx-5 sm:mx-0"
-                    >
-                        Fullstack Developer Based in Pune
-                    </p>
+                        <p className="sm:mx-1 mx-5">Hey there, Its</p>
+                        <h1 className="sm:text-6xl text-5xl font-bold tracking-tight my-2 mx-5 sm:mx-0">
+                            Sachin Parihar
+                        </h1>
+                        <p className="sm:text-3xl text-xl text-neutral-300 mb-2 mx-5 sm:mx-0">
+                            Fullstack Developer Based in Pune
+                        </p>
                     </div>
-                    <p 
-                        className="sm:text-2xl text-neutral-500 max-w-2xl mx-5 sm:text-end sm:mx-0"
-                    >
+                    <p className="sm:text-2xl text-neutral-500 max-w-2xl mx-5 sm:text-end sm:mx-0">
                         Crafting digital experiences that blur the lines between design, technology, and human interaction.
                     </p>
-                </div>
-                <Image 
-                    src={Hero} 
-                    alt="heroImg" 
-                    className="h-[58vh] my-9 rounded-md sm:w-[85vw] object-cover object-top w-[90%]"
-                />
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.1, delay: 0.2 }}
+                >
+                    <Image 
+                        src={Hero} 
+                        alt="heroImg" 
+                        className="h-[58vh] my-9 rounded-md sm:w-[85vw] object-cover object-top w-[90%]"
+                    />
+                </motion.div>
             </div>
 
             {/* Tech Stack Section */}
-            <section id="tech-stack" className="container w-full min-h-screen flex justify-center items-center flex-col py-8 sm:py-16 px-3 sm:px-4">
-                <div className="max-w-6xl w-full">
-                    <h2 className="text-4xl sm:text-5xl font-light text-center mb-8 sm:mb-16" data-aos="fade-up">
-                        Tech Stack
-                    </h2>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                        {techCategories.map((category, index) => (
-                            <div
-                                key={index}
-                                className="relative group"
-                                data-aos="zoom-in"
-                                data-aos-delay={index * 100}
-                            >
-                                <div className={`absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br ${category.color} blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500`} />
-                                <div className="relative bg-neutral-900/80 border border-neutral-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 h-full backdrop-blur-sm">
-                                    <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                                        {category.icon}
-                                        <h3 className="text-xl sm:text-2xl font-medium">{category.title}</h3>
-                                    </div>
-                                    <div className="space-y-3 sm:space-y-4">
-                                        {category.technologies.map((tech, techIndex) => (
-                                            <div
-                                                key={techIndex}
-                                                className="group/tech flex justify-between items-center p-2 sm:p-3 rounded-lg hover:bg-neutral-800/50 transition-colors"
-                                            >
-                                                <span className="text-base sm:text-lg text-neutral-300 group-hover/tech:text-white">
-                                                    {tech.name}
-                                                </span>
-                                                <span className="text-xs sm:text-sm text-neutral-500 group-hover/tech:text-neutral-300">
-                                                    {tech.level}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+            <div id="techstack" className="h-fit w-full">
+                <section className="bg-black py-5 flex flex-col justify-center items-center w-full text-gray-100 h-fit">
+                    <motion.div 
+                        className="container p-4 space-y-2 text-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <h2 className="text-5xl font-bold">Tech Stack</h2>
+                        <p className="text-gray-400">To make me a superhero</p>
+                    </motion.div>
+                    <div className="container mx-auto grid justify-center gap-7 sm:grid-cols-4">
+                        <TechStackItem icon={<AiOutlineHtml5 className="w-12 h-12 text-white"/>} title="HTML" description="The standard markup language for creating web pages." skillLevel="Advanced" />
+                        <TechStackItem icon={<TbBrandCss3 className="w-12 h-12 text-white"/>} title="CSS" description="The language used for describing the presentation of web pages." skillLevel="Intermediate" />
+                        <TechStackItem icon={<TbBrandJavascript className="w-12 h-12 text-white"/>} title="JavaScript" description="A programming language that enables interactive web pages." skillLevel="Advanced" />
+                        <TechStackItem icon={<SiTypescript className="w-12 h-12 text-white"/>} title="TypeScript" description="A superset of JavaScript that adds static typing." skillLevel="Intermediate" />
+                        <TechStackItem icon={<FaReact className="w-12 h-12 text-white"/>} title="React.js" description="A JavaScript library for building user interfaces." skillLevel="Advanced" />
+                        <TechStackItem icon={<FaBootstrap className="w-12 h-12 text-white"/>} title="Bootstrap" description="A CSS framework for developing responsive and mobile-first websites." skillLevel="Intermediate" />
+                        <TechStackItem icon={<SiTailwindcss className="w-12 h-12 text-white"/>} title="Tailwind CSS" description="A utility-first CSS framework for building custom designs." skillLevel="Intermediate" />
+                        <TechStackItem icon={<SiNextdotjs className="w-12 h-12 text-white"/>} title="Next.js" description="A React framework for building production-ready applications." skillLevel="Intermediate" />
+                        <TechStackItem icon={<DiMongodb className="w-12 h-12 text-white"/>} title="MongoDB" description="A NoSQL database for storing and retrieving data." skillLevel="Intermediate" />
+                        <TechStackItem icon={<IoLogoFirebase className="w-12 h-12 text-white"/>} title="Firebase" description="A platform for building web and mobile applications without managing infrastructure." skillLevel="Advanced" />
+                        <TechStackItem icon={<RiSupabaseFill className="w-12 h-12 text-white"/>} title="Supabase" description="An open-source alternative to Firebase." skillLevel="Intermediate" />
+                        <TechStackItem icon={<FaPython className="w-12 h-12 text-white"/>} title="Python" description="A programming language used for web development, data science, and more." skillLevel="Advanced" />
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
 
             {/* Experience Section */}
-            <section 
-                id="experience" 
-                className="container mx-auto px-6 py-16"
-                data-aos="fade-up"
-            >
-                <h2 
-                    className="text-4xl font-light text-center mb-12"
-                    data-aos="fade-down"
-                >
+            <section id="experience" className="container mx-auto px-6 py-16">
+                <h2 className="text-4xl font-light text-center mb-12">
                     Professional Experience
                 </h2>
                 <div className="relative max-w-2xl mx-auto before:absolute before:inset-0 before:ml-5 before:w-0.5 before:bg-neutral-800">
@@ -213,24 +205,19 @@ const Main = () => {
             </section>
 
             {/* Projects Section */}
-            <section 
-                id="work" 
-                className="container min-h-screen flex flex-col items-center"
-                data-aos="fade-up"
-            >
-                <h2 
-                    className="text-4xl font-light text-center mb-12"
-                    data-aos="fade-down"
-                >
+            <section id="work" className="container min-h-screen flex flex-col items-center">
+                <h2 className="text-4xl font-light text-center mb-12">
                     Projects
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 justify-items-center w-[85vw]">
-                    {projects.map((project, index) => (
-                        <div
+                    {sortedProjects.map((project, index) => (
+                        <motion.div
                             key={index}
                             className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 group overflow-hidden relative w-[95%] max-w-md min-h-[25vh] h-fit"
-                            data-aos="zoom-in"
-                            data-aos-delay={index * 200}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.1, delay: index * 0.1 }}
+                            whileHover={{ y: -5 }}
                         >
                             <div className="absolute top-0 right-0 m-4 flex space-x-2">
                                 <a
@@ -268,13 +255,11 @@ const Main = () => {
                                     </span>
                                 ))}
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </section>
-            <section className="h-[10vh] w-full">
-
-            </section>
+            <section className="h-[10vh] w-full" />
         </div>
     )
 }
