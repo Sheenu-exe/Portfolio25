@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex bg-black justify-center flex-col items-center">
      
       <Main/>
-      
+     
     </div>
   );
 }

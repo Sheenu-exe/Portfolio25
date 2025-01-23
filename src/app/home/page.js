@@ -108,7 +108,7 @@ const Main = () => {
     return (
         <div className="bg-black w-full text-white min-h-screen flex justify-center items-center flex-col">
             {/* Hero Section */}
-            <div className="container h-screen mt-5 flex flex-col justify-center items-center sm:justify-center sm:items-center">
+            <div className="container h-screen mt-5 flex flex-col justify-center items-center ">
                 <motion.div 
                     className="sm:w-[85vw] flex sm:flex-row flex-col"
                     initial={{ opacity: 0, y: 20 }}
@@ -136,7 +136,7 @@ const Main = () => {
                     <Image 
                         src={Hero} 
                         alt="heroImg" 
-                        className="h-[58vh] my-9 rounded-md sm:w-[85vw] object-cover object-top w-[90%]"
+                        className="h-[58vh] my-9 rounded-md sm:w-[85vw] mx-auto object-cover object-top w-[90%]"
                     />
                 </motion.div>
             </div>
