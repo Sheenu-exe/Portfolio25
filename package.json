@@ -21,6 +21,7 @@
     "next": "15.0.3",
     "react-icons": "^5.4.0",
     "react-spring-carousel": "^2.0.19",
+    "react-twitter-embed": "^4.0.4",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "typed.js": "^2.1.0",

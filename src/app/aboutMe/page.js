@@ -1,5 +1,7 @@
 'use client'
 import { motion } from 'framer-motion';
+import Script from 'next/script';
+import { Globe, LinkedinIcon, Instagram, Twitter } from 'lucide-react';
 import Carousel from "../components/carroussel";
 import Slide1 from "../assets/imgs/slide1.jpeg";
 import Slide2 from "@/app/assets/imgs/Slide2.jpg"
@@ -10,6 +12,94 @@ import Slide6 from "@/app/assets/imgs/Slide6.jpg"
 import Slide7 from "@/app/assets/imgs/Slide7.jpg"
 import Slide8 from "@/app/assets/imgs/Slide8.jpg"
 import Slide9 from "@/app/assets/imgs/Slide9.jpg"
+
+const SocialMediaSection = () => {
+    return (
+        <div className="py-16">
+            <div className="container mx-auto px-4">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-12"
+                >
+                    <div className="flex justify-center items-center gap-4 mb-4">
+                        <Globe className="text-blue-500 w-10 h-10" />
+                        <h2 className="text-4xl font-bold text-white">My Digital Footprint</h2>
+                    </div>
+                    <p className="text-gray-400 max-w-2xl mx-auto">
+                        Explore my latest updates, thoughts, and professional journey across different social platforms.
+                    </p>
+                </motion.div>
+
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                >
+                    {/* Twitter Post */}
+                    <div className="bg-gray-800 rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
+                        <div className="flex items-center mb-4">
+                            <Twitter className="text-blue-400 mr-3 w-8 h-8" />
+                            <h3 className="text-xl font-semibold text-white">Twitter</h3>
+                        </div>
+                        <div className="h-[600px] overflow-hidden rounded-lg">
+                            <blockquote className="twitter-tweet">
+                                <p lang="en" dir="ltr">💼 Sachin Parihar - Fullstack Developer<br />Here's my journey, skills, and projects—packed into one thread. 🧵👇<br />Open for Opportunity!</p>
+                                &mdash; Sachin Parihar (@Sheenu_exe) <a href="https://twitter.com/Sheenu_exe/status/1882304497789317206">January 23, 2025</a>
+                            </blockquote>
+                            <Script 
+                                src="https://platform.twitter.com/widgets.js" 
+                                strategy="lazyOnload" 
+                            />
+                        </div>
+                    </div>
+
+                    {/* Instagram Post */}
+                    <div className="bg-gray-800 rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
+                        <div className="flex items-center mb-4">
+                            <Instagram className="text-pink-500 mr-3 w-8 h-8" />
+                            <h3 className="text-xl font-semibold text-white">Instagram</h3>
+                        </div>
+                        <div className="h-[600px] overflow-hidden rounded-lg">
+                            <blockquote 
+                                className="instagram-media" 
+                                data-instgrm-captioned 
+                                data-instgrm-permalink="https://www.instagram.com/reel/DEmEDIfTvHk/?utm_source=ig_embed&utm_campaign=loading" 
+                                data-instgrm-version="14"
+                            >
+                                <a href="https://www.instagram.com/reel/DEmEDIfTvHk/?utm_source=ig_embed&utm_campaign=loading">View this post on Instagram</a>
+                            </blockquote>
+                            <Script 
+                                src="//www.instagram.com/embed.js" 
+                                strategy="lazyOnload" 
+                            />
+                        </div>
+                    </div>
+
+                    {/* LinkedIn Post */}
+                    <div className="bg-gray-800 rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
+                        <div className="flex items-center mb-4">
+                            <LinkedinIcon className="text-blue-600 mr-3 w-8 h-8" />
+                            <h3 className="text-xl font-semibold text-white">LinkedIn</h3>
+                        </div>
+                        <div className="h-[600px] overflow-hidden rounded-lg">
+                            <iframe 
+                                src="https://www.linkedin.com/embed/feed/update/urn:li:share:7278346219670638593" 
+                                height="600" 
+                                width="100%" 
+                                className="border-none" 
+                                allowFullScreen 
+                                title="Embedded LinkedIn post"
+                            ></iframe>
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+    );
+};
 
 const AboutMe = () => {
     const slides = [
@@ -66,6 +156,8 @@ const AboutMe = () => {
                     />
                 </motion.div>
             </div>
+            
+            <SocialMediaSection />
         </div>
     )
 }
