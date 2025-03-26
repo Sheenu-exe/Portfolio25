@@ -8,6 +8,7 @@ import { Code, ExternalLink } from "lucide-react";
 import { Globe, Database, Palette, Brain } from "lucide-react";
 import Image from "next/image";
 import Hero from "../assets/imgs/hero-section5.jpg"
+import HeroMob from "../assets/imgs/hero-section.jpg"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { AiOutlineHtml5 } from "react-icons/ai";
@@ -136,7 +137,12 @@ const Main = () => {
                     <Image 
                         src={Hero} 
                         alt="heroImg" 
-                        className="h-[58vh] my-9 rounded-md sm:w-[85vw] mx-auto object-cover object-top w-[90%]"
+                        className="h-[58vh] sm:flex my-9 rounded-md sm:w-[85vw] mx-auto object-cover object-center w-[90%]"
+                    />
+                    <Image 
+                        src={HeroMob} 
+                        alt="heroImg" 
+                        className="h-[58vh] hidden my-9 rounded-md sm:w-[85vw] mx-auto object-cover object-center w-[90%]"
                     />
                 </motion.div>
             </div>
