@@ -124,10 +124,10 @@ const Footer = () => {
             {/* Socials Column */}
             <div className="flex flex-col space-y-4">
               <h4 className="text-neutral-500 font-mono text-xs uppercase tracking-wider mb-2">Socials</h4>
-              <SocialLink href="https://github.com" label="GitHub" />
-              <SocialLink href="https://linkedin.com" label="LinkedIn" />
-              <SocialLink href="https://twitter.com" label="Twitter" />
-              <SocialLink href="https://instagram.com" label="Instagram" />
+              <SocialLink href="https://github.com/Sheenu-exe" label="GitHub" />
+              <SocialLink href="https://www.linkedin.com/in/sachin-parihar-008180264/" label="LinkedIn" />
+              <SocialLink href="https://twitter.com/Sheenu_exe" label="Twitter" />
+              <SocialLink href="https://instagram.com/iamsachin.me" label="Instagram" />
             </div>
 
             {/* Location & Time Block */}

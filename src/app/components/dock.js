@@ -39,7 +39,7 @@ function DockDemo() {
           </Link>
         </DockIcon>
         <DockIcon className="text-white text-3xl">
-        <Link target="_blank" href="https://www.instagram.com/sachinn.code/">
+        <Link target="_blank" href="https://www.instagram.com/iamsachin.me/">
           <FaInstagram title="GitHub"/>
           </Link>
         </DockIcon>
