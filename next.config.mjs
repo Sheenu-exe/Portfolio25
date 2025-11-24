@@ -8,6 +8,12 @@ const nextConfig = {
           port: '',
           pathname: '/v0/b/portfolio-b6d2e.appspot.com/o/**',
         },
+        {
+          protocol: 'https',
+          hostname: 'lastfm.freetls.fastly.net',
+          port: '',
+          pathname: '/**',
+        },
       ],
     },
   }

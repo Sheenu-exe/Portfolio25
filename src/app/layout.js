@@ -12,9 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="bg-black">
         {children}
-        <div className="sticky bottom-5 left-0 w-full flex justify-center items-center">
         <DockDemo/>
-      </div>
       </body>
     </html>
   );

@@ -11,8 +11,7 @@ import Link from "next/link";
 
 function DockDemo() {
   return (
-    <div className="relative">
-      <Dock direction="middle"> 
+    <Dock direction="middle"> 
         <DockIcon className="text-white text-3xl">
           <Link href="/">
             <IoMdHome title="Home"/>
@@ -55,7 +54,6 @@ function DockDemo() {
           </a>
         </DockIcon>
       </Dock>
-    </div>
   );
 }
 
