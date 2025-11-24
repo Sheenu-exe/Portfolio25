@@ -11,8 +11,8 @@ import {
   Terminal, Zap, MapPin, GraduationCap, 
   ArrowUpRight, Sword, Navigation, 
   Dumbbell, Film, Footprints, Plane, 
-  Monitor, Keyboard, Disc, Music, 
-  Settings, PenTool, Send, Cpu, Radio, 
+  Monitor, Keyboard, Disc, 
+  Settings, PenTool, Send, Cpu, 
   Code2, User
 } from 'lucide-react';
 import Carousel from "../components/carroussel"; 
@@ -94,148 +94,6 @@ const BentoCard = ({ children, className = "", delay = 0, noPadding = false }) =
 );
 
 // --- COMPONENTS ---
-
-const MusicCard = () => {
-    const [track, setTrack] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchMusic = async () => {
-            // Read environment variables directly and clean them (remove quotes if present)
-            const apiKey = (process.env.NEXT_PUBLIC_LASTFM_API_KEY || "").replace(/^["']|["']$/g, "").trim();
-            const username = (process.env.NEXT_PUBLIC_LASTFM_USERNAME || "sachinparihar10").replace(/^["']|["']$/g, "").trim();
-            
-            if (!apiKey) {
-                setError("API key not configured. Please set NEXT_PUBLIC_LASTFM_API_KEY in .env.local");
-                setLoading(false);
-                return;
-            }
-
-            if (!username) {
-                setError("Username not configured. Please set NEXT_PUBLIC_LASTFM_USERNAME in .env.local");
-                setLoading(false);
-                return;
-            }
-
-            try {
-                const res = await fetch(
-                    `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`
-                );
-                
-                if (!res.ok) {
-                    throw new Error(`API request failed: ${res.status}`);
-                }
-
-                const data = await res.json();
-                
-                if (data.error) {
-                    throw new Error(data.message || "Last.fm API error");
-                }
-
-                if (data.recenttracks && data.recenttracks.track && data.recenttracks.track.length > 0) {
-                    const recent = Array.isArray(data.recenttracks.track) 
-                        ? data.recenttracks.track[0] 
-                        : data.recenttracks.track;
-                    
-                    setTrack({
-                        name: recent.name,
-                        artist: recent.artist?.['#text'] || recent.artist?.name || "Unknown Artist",
-                        image: recent.image?.[3]?.['#text'] || recent.image?.[2]?.['#text'] || "",
-                        isPlaying: recent['@attr']?.nowplaying === 'true'
-                    });
-                    setError(null);
-                } else {
-                    setError("No recent tracks found");
-                }
-            } catch (e) {
-                console.error("Last.fm API Error:", e);
-                setError(e.message || "Failed to fetch music data");
-                setTrack(null);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMusic();
-        const interval = setInterval(fetchMusic, 30000); // Update every 30 seconds
-        return () => clearInterval(interval);
-    }, []); // Empty deps - env vars are read inside
-
-    return (
-        <div className="h-full flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2 text-red-500">
-                    <Radio size={16} className={track?.isPlaying ? "animate-pulse" : ""} />
-                    <span className="text-xs font-bold uppercase tracking-wider opacity-80">
-                        {track?.isPlaying ? "Now Listening" : track ? "Last Played" : "Status"}
-                    </span>
-                </div>
-                <div className="text-[10px] font-mono bg-white/5 border border-white/10 px-2 py-1 rounded-md text-neutral-400">Last.fm</div>
-            </div>
-
-            {loading ? (
-                <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-lg bg-neutral-800 animate-pulse"></div>
-                    <div className="flex flex-col gap-2 flex-1">
-                        <div className="h-4 bg-neutral-800 rounded animate-pulse w-3/4"></div>
-                        <div className="h-3 bg-neutral-800 rounded animate-pulse w-1/2"></div>
-                    </div>
-                </div>
-            ) : error ? (
-                <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-lg bg-neutral-800 flex items-center justify-center">
-                        <Music size={20} className="text-neutral-600" />
-                    </div>
-                    <div className="flex flex-col min-w-0">
-                        <span className="text-white font-bold text-sm">Connection Error</span>
-                        <span className="text-neutral-400 text-xs truncate">{error}</span>
-                    </div>
-                </div>
-            ) : track ? (
-                <>
-                    <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-lg overflow-hidden relative border border-white/10 shadow-lg flex-shrink-0">
-                            {track.image ? (
-                                <Image 
-                                    src={track.image} 
-                                    alt="Album" 
-                                    fill 
-                                    className={`object-cover ${track.isPlaying ? "animate-spin-slow" : ""}`} 
-                                />
-                            ) : (
-                                <div className="w-full h-full bg-neutral-800 flex items-center justify-center">
-                                    <Music size={20} className="text-neutral-600" />
-                                </div>
-                            )}
-                        </div>
-                        <div className="flex flex-col min-w-0">
-                            <span className="text-white font-bold text-sm truncate">{track.name}</span>
-                            <span className="text-neutral-400 text-xs truncate">{track.artist}</span>
-                        </div>
-                    </div>
-                    {track.isPlaying && (
-                        <div className="flex gap-1 h-3 items-end absolute bottom-8 right-8">
-                            <div className="w-1 bg-red-500 bar"></div>
-                            <div className="w-1 bg-red-500 bar"></div>
-                            <div className="w-1 bg-red-500 bar"></div>
-                        </div>
-                    )}
-                </>
-            ) : (
-                <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-lg bg-neutral-800 flex items-center justify-center">
-                        <Music size={20} className="text-neutral-600" />
-                    </div>
-                    <div className="flex flex-col min-w-0">
-                        <span className="text-white font-bold text-sm">No Data</span>
-                        <span className="text-neutral-400 text-xs">Check API configuration</span>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
-};
 
 const Guestbook = () => {
     const [message, setMessage] = useState('');
@@ -425,11 +283,6 @@ const AboutMe = () => {
                                 <span>85% Complete</span>
                             </div>
                         </div>
-                    </BentoCard>
-
-                    {/* 5. Music Card */}
-                    <BentoCard className="md:col-span-4 lg:col-span-4 min-h-[220px]">
-                        <MusicCard />
                     </BentoCard>
 
                     {/* 6. Config Card */}
