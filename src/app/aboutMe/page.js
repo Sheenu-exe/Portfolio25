@@ -11,11 +11,11 @@ import {
   Terminal, Zap, MapPin, GraduationCap, 
   ArrowUpRight, Sword, Navigation, 
   Dumbbell, Film, Footprints, Plane, 
-  Monitor, Keyboard, Music, 
+  Monitor, Keyboard, Disc, 
   Settings, PenTool, Send, Cpu
 } from 'lucide-react';
 import Carousel from "../components/carroussel"; 
-
+import { Code2 } from 'lucide-react';
 // --- IMAGE IMPORTS ---
 import Slide1 from "../assets/imgs/slide1.jpeg";
 import Slide2 from "@/app/assets/imgs/Slide2.jpg"
@@ -87,7 +87,8 @@ const Guestbook = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const q = query(collection(db, "guestbook"), orderBy("createdAt", "desc"), limit(3));
+        // Limit increased to 50 to show scrolling history
+        const q = query(collection(db, "guestbook"), orderBy("createdAt", "desc"), limit(50));
         const unsubscribe = onSnapshot(q, (snap) => setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
         return () => unsubscribe();
     }, []);
@@ -104,8 +105,8 @@ const Guestbook = () => {
     };
 
     return (
-        <div className="h-full flex flex-col">
-            <div className="mb-4 flex items-center gap-2">
+        <div className="h-full flex flex-col w-full">
+            <div className="mb-4 flex items-center gap-2 flex-shrink-0">
                 <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400"><PenTool size={18}/></div>
                 <div>
                     <h3 className="text-sm font-bold text-white">Guestbook</h3>
@@ -113,20 +114,25 @@ const Guestbook = () => {
                 </div>
             </div>
             
-            <div className="flex-grow space-y-2 overflow-y-auto custom-scrollbar mb-4 pr-2">
+            {/* SCROLLABLE AREA */}
+            <div className="flex-grow overflow-y-auto custom-scrollbar mb-4 pr-2 space-y-2 min-h-0">
                 {messages.map((msg) => (
-                    <div key={msg.id} className="bg-white/5 border border-white/5 p-2.5 rounded-xl text-xs">
-                        <span className="font-bold text-purple-300 block mb-0.5">{msg.name}</span>
-                        <span className="text-neutral-300 leading-relaxed">{msg.message}</span>
+                    <div key={msg.id} className="bg-white/5 border border-white/5 p-3 rounded-xl text-xs">
+                        <span className="font-bold text-purple-300 block mb-1">{msg.name}</span>
+                        <span className="text-neutral-300 leading-relaxed break-words">{msg.message}</span>
                     </div>
                 ))}
+                {messages.length === 0 && (
+                    <div className="text-neutral-500 text-xs text-center italic py-4">Be the first to sign!</div>
+                )}
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-2 mt-auto">
-                <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-purple-500/50 transition-colors"/>
+            {/* FORM AREA */}
+            <form onSubmit={handleSubmit} className="space-y-2 mt-auto flex-shrink-0">
+                <input type="text" placeholder="Name / Alias" value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-purple-500/50 transition-colors"/>
                 <div className="flex gap-2">
                     <input type="text" placeholder="Message..." value={message} onChange={(e) => setMessage(e.target.value)} className="w-full bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-purple-500/50 transition-colors"/>
-                    <button type="submit" disabled={loading} className="bg-white text-black p-2 rounded-lg hover:bg-neutral-200 transition-colors disabled:opacity-50"><Send size={14} /></button>
+                    <button type="submit" disabled={loading} className="bg-white text-black p-2 rounded-lg hover:bg-neutral-200 transition-colors disabled:opacity-50 flex-shrink-0"><Send size={14} /></button>
                 </div>
             </form>
         </div>
@@ -227,7 +233,6 @@ const AboutMe = () => {
                             <Image src={SetupImg} alt="Desk Setup" fill className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
                         </div>
-                        {/* Hotspots */}
                         <div className="absolute top-[30%] left-[50%] group/spot">
                             <div className="w-3 h-3 bg-green-500 rounded-full animate-ping absolute"></div>
                             <div className="w-3 h-3 bg-green-500 rounded-full border-2 border-black relative cursor-pointer shadow-[0_0_20px_rgba(34,197,94,0.6)]"></div>
@@ -269,49 +274,49 @@ const AboutMe = () => {
                         </div>
                     </BentoCard>
 
-                    {/* 5. SPOTIFY Embed Card (Replaces Last.fm) */}
-                    <BentoCard className="md:col-span-4 lg:col-span-4 min-h-[220px] flex flex-col bg-neutral-900" noPadding>
-                        <div className="relative w-full h-full flex-grow">
-                            <iframe 
-                                style={{borderRadius: "12px"}} 
-                                src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd?utm_source=generator&theme=0" 
-                                width="100%" 
-                                height="100%" 
-                                frameBorder="0" 
-                                allowFullScreen="" 
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    {/* 5. Spotify (RapCaviar) */}
+                    <BentoCard className="md:col-span-4 lg:col-span-4 min-h-[220px]" noPadding delay={0.3}>
+                        <div className="w-full h-full bg-[#121212] relative overflow-hidden rounded-[2rem]">
+                            <iframe
+                                data-testid="embed-iframe"
+                                style={{ borderRadius: '12px' }}
+                                src="https://open.spotify.com/embed/playlist/76ixDaNumvGhEwGkISg19O?utm_source=generator"
+                                width="100%"
+                                height="352"
+                                frameBorder="0"
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                                 loading="lazy"
-                                className="absolute inset-0 w-full h-full"
                             ></iframe>
                         </div>
                     </BentoCard>
 
                     {/* 6. Config Card */}
                     <BentoCard className="md:col-span-4 lg:col-span-4 flex flex-col justify-center">
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="flex items-center gap-2 text-blue-400">
-                                <div className="p-2 bg-blue-500/20 rounded-lg"><Settings size={16} /></div>
-                                <span className="text-xs font-bold uppercase tracking-wider">Stack & Config</span>
-                            </div>
-                            <div className="text-[10px] bg-white/10 px-2 py-1 rounded text-neutral-400 font-mono">.vscode</div>
+                        <div className="flex items-center gap-2 mb-6 text-blue-400">
+                            <div className="p-2 bg-blue-500/20 rounded-lg"><Code2 size={16} /></div>
+                            <span className="text-xs font-bold uppercase tracking-wider">Skill Tree</span>
                         </div>
-                        <div className="font-mono text-xs text-neutral-400 space-y-3 bg-black/40 p-4 rounded-xl border border-white/5 shadow-inner">
-                            <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                <span>Theme</span>
-                                <span className="text-purple-400">"Tokyo Night"</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                <span>Font</span>
-                                <span className="text-orange-400">"JetBrains Mono"</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                <span>Shell</span>
-                                <span className="text-green-400">"Zsh + Fig"</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span>Browser</span>
-                                <span className="text-blue-400">"Arc"</span>
-                            </div>
+                        <div className="space-y-4">
+                            {[
+                                { label: "Frontend Arch", level: 92, color: "bg-blue-500" },
+                                { label: "Backend / API", level: 75, color: "bg-green-500" },
+                                { label: "UI/UX Design", level: 88, color: "bg-purple-500" }
+                            ].map((skill, i) => (
+                                <div key={i}>
+                                    <div className="flex justify-between text-xs mb-1">
+                                        <span className="text-neutral-300">{skill.label}</span>
+                                        <span className="text-neutral-500 font-mono">{skill.level}%</span>
+                                    </div>
+                                    <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                                        <motion.div 
+                                            initial={{ width: 0 }} 
+                                            whileInView={{ width: `${skill.level}%` }} 
+                                            transition={{ duration: 1, delay: 0.5 + (i * 0.1) }}
+                                            className={`h-full ${skill.color} rounded-full shadow-[0_0_10px_rgba(255,255,255,0.2)]`}
+                                        ></motion.div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </BentoCard>
 
@@ -340,13 +345,13 @@ const AboutMe = () => {
                         </div>
                     </BentoCard>
 
-                    {/* 8. Guestbook */}
-                    <BentoCard className="md:col-span-6 lg:col-span-6">
+                    {/* 8. Guestbook - FIXED HEIGHT */}
+                    <BentoCard className="md:col-span-6 lg:col-span-6 h-[400px]">
                         <Guestbook />
                     </BentoCard>
 
                     {/* 9. Map Card */}
-                    <BentoCard className="md:col-span-6 lg:col-span-6 min-h-[220px] group" noPadding>
+                    <BentoCard className="md:col-span-6 lg:col-span-6 h-[400px] relative group overflow-hidden" noPadding>
                         <div className="absolute inset-0 bg-neutral-800">
                             <iframe 
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.23456789!2d73.79!3d18.59!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM1JzIyLjgiTiA3M8KwNDcnMzEuMiJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" 
