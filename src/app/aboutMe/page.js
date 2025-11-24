@@ -11,9 +11,8 @@ import {
   Terminal, Zap, MapPin, GraduationCap, 
   ArrowUpRight, Sword, Navigation, 
   Dumbbell, Film, Footprints, Plane, 
-  Monitor, Keyboard, Disc, 
-  Settings, PenTool, Send, Cpu, 
-  Code2, User
+  Monitor, Keyboard, Music, 
+  Settings, PenTool, Send, Cpu
 } from 'lucide-react';
 import Carousel from "../components/carroussel"; 
 
@@ -33,9 +32,6 @@ import ZoroImg from "@/app/assets/imgs/zoro.jpg"
 import SetupImg from "@/app/assets/imgs/setup.jpg" 
 import AnimeImg from "@/app/assets/imgs/csm-rezearc.jpg"
 
-// --- CONFIGURATION ---
-// Environment variables are read directly in components to ensure they're available at runtime
-
 // --- DYNAMIC IMPORTS ---
 const GitHubCalendar = dynamic(
     () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
@@ -49,16 +45,6 @@ const scrollbarStyles = `
   .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
   .map-grayscale { filter: grayscale(100%) invert(95%) contrast(85%); }
-  .animate-spin-slow { animation: spin 4s linear infinite; }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  
-  /* Equalizer */
-  @keyframes equalizer { 0% { height: 10%; } 50% { height: 100%; } 100% { height: 10%; } }
-  .bar { animation: equalizer 1s infinite ease-in-out; }
-  .bar:nth-child(1) { animation-duration: 0.8s; }
-  .bar:nth-child(2) { animation-duration: 1.1s; }
-  .bar:nth-child(3) { animation-duration: 0.9s; }
-  .bar:nth-child(4) { animation-duration: 1.2s; }
 `;
 
 // --- PREMIUM BENTO CARD COMPONENT ---
@@ -74,7 +60,7 @@ const BentoCard = ({ children, className = "", delay = 0, noPadding = false }) =
             border border-white/10 border-t-white/20
             shadow-[0_8px_30px_rgb(0,0,0,0.12)]
             rounded-[2rem]
-            hover:border-white/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)]
+            hover:border-white/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] hover:-translate-y-1
             transition-all duration-500
             flex flex-col
             ${className}
@@ -88,13 +74,12 @@ const BentoCard = ({ children, className = "", delay = 0, noPadding = false }) =
         
         {/* Content Container */}
         <div className={`relative z-10 h-full w-full ${noPadding ? '' : 'p-6 md:p-8'}`}>
-        {children}
+            {children}
         </div>
     </motion.div>
 );
 
-// --- COMPONENTS ---
-
+// --- COMPONENT: GUESTBOOK ---
 const Guestbook = () => {
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
@@ -193,7 +178,7 @@ const AboutMe = () => {
                     {/* 1. Main Bio */}
                     <BentoCard className="md:col-span-6 lg:col-span-8 min-h-[400px]">
                         <div className="flex flex-col justify-between h-full relative z-10">
-                        <div>
+                            <div>
                                 <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 border border-white/10">
                                     <Terminal size={24} className="text-green-400" />
                                 </div>
@@ -213,7 +198,6 @@ const AboutMe = () => {
                             </div>
                         </div>
                         
-                        {/* Decorative Icon BG */}
                         <div className="absolute -bottom-10 -right-10 opacity-[0.03] pointer-events-none">
                             <Terminal size={300} />
                         </div>
@@ -243,7 +227,7 @@ const AboutMe = () => {
                             <Image src={SetupImg} alt="Desk Setup" fill className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
                         </div>
-                        {/* Hotspots with improved tooltips */}
+                        {/* Hotspots */}
                         <div className="absolute top-[30%] left-[50%] group/spot">
                             <div className="w-3 h-3 bg-green-500 rounded-full animate-ping absolute"></div>
                             <div className="w-3 h-3 bg-green-500 rounded-full border-2 border-black relative cursor-pointer shadow-[0_0_20px_rgba(34,197,94,0.6)]"></div>
@@ -285,6 +269,23 @@ const AboutMe = () => {
                         </div>
                     </BentoCard>
 
+                    {/* 5. SPOTIFY Embed Card (Replaces Last.fm) */}
+                    <BentoCard className="md:col-span-4 lg:col-span-4 min-h-[220px] flex flex-col bg-neutral-900" noPadding>
+                        <div className="relative w-full h-full flex-grow">
+                            <iframe 
+                                style={{borderRadius: "12px"}} 
+                                src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd?utm_source=generator&theme=0" 
+                                width="100%" 
+                                height="100%" 
+                                frameBorder="0" 
+                                allowFullScreen="" 
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                loading="lazy"
+                                className="absolute inset-0 w-full h-full"
+                            ></iframe>
+                        </div>
+                    </BentoCard>
+
                     {/* 6. Config Card */}
                     <BentoCard className="md:col-span-4 lg:col-span-4 flex flex-col justify-center">
                         <div className="flex items-center justify-between mb-6">
@@ -298,7 +299,7 @@ const AboutMe = () => {
                             <div className="flex justify-between items-center border-b border-white/5 pb-2">
                                 <span>Theme</span>
                                 <span className="text-purple-400">"Tokyo Night"</span>
-                                </div>
+                            </div>
                             <div className="flex justify-between items-center border-b border-white/5 pb-2">
                                 <span>Font</span>
                                 <span className="text-orange-400">"JetBrains Mono"</span>
@@ -306,7 +307,7 @@ const AboutMe = () => {
                             <div className="flex justify-between items-center border-b border-white/5 pb-2">
                                 <span>Shell</span>
                                 <span className="text-green-400">"Zsh + Fig"</span>
-                                </div>
+                            </div>
                             <div className="flex justify-between items-center">
                                 <span>Browser</span>
                                 <span className="text-blue-400">"Arc"</span>
